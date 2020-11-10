@@ -9,11 +9,16 @@
   height: 100px; 
 }
 
-.FolderNav {
-  text-align: left;
+.FolderNavNoteList {
+  text-align: center;
   list-style: none;
 }
 
 .NoteList {
+  list-style: none;
+}
+
+.FolderNav{
+  text-align: left;
   list-style: none;
 }

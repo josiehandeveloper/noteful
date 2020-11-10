@@ -8,10 +8,19 @@ export const MainContainer = (props) => {
    let notes = store.notes.filter((note) => {
          return note.folderId === folderId
     })
-    console.log(props.match.params)
+
     return (
         <div className='FolderNavNoteList'>
-            <ul className='Notes'>
+            <ul className='FolderNav'>
+                {store.folders.map(folder => 
+                    <li key ={folder.id}>
+                        <Link to={`/folder/${folder.id}`}>
+                            {folder.name}
+                        </Link>
+                    </li>
+                )}
+            </ul>
+            <ul className='NoteList'>
                 {notes.map(note => 
                     <li key={note.id}>
                         <Link to={`/note/${note.id}`}>
@@ -25,4 +34,7 @@ export const MainContainer = (props) => {
         </div>
     )
 }
+
+
+
    
