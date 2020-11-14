@@ -1,7 +1,8 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react'; 
 import './App.css';
-import { Link } from 'react-router-dom';
 import store from './store';
+import FolderNav from './FolderNav';
+import { Link } from 'react-router-dom';
 
 export const MainContainer = (props) => {
    let folderId = props.match.params.folderId
@@ -10,31 +11,27 @@ export const MainContainer = (props) => {
     })
 
     return (
-        <div className='FolderNavNoteList'>
-            <ul className='FolderNav'>
-                {store.folders.map(folder => 
-                    <li key ={folder.id}>
-                        <Link to={`/folder/${folder.id}`}>
-                            {folder.name}
-                        </Link>
-                    </li>
-                )}
-            </ul>
-            <ul className='NoteList'>
-                {notes.map(note => 
-                    <li key={note.id}>
-                        <Link to={`/note/${note.id}`}>
-                            {note.name}
-                        </Link>
-                        <br />
-                        Date Modified: {note.modified}
-                    </li>
-                )}
-            </ul> 
-        </div>
+        <>
+            <FolderNav />
+        
+            <main>
+                <ul className='NoteList'>
+                    {notes.map(note => 
+                        <li key={note.id}>
+                            <Link to={`/note/${note.id}`} >
+                                {note.name}
+                            </Link>
+                            <br />
+                            <p>Date Modified: {note.modified}</p>
+                        </li>
+                    )}
+                </ul> 
+            </main>
+        </>
     )
 }
 
 
 
-   
+
+
