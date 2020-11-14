@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import {MainContainer}  from './MainContainer';
-import {NoteContainer} from './NoteContainer';
+import NoteContainer from './NoteContainer';
 import Header from './Header';
 import NotefulContext from './NotefulContext'; 
 import config from './config';
@@ -15,7 +15,7 @@ class App extends Component {
 
   deleteNote = (noteId) => {
     const newNotes = this.state.notes.filter(n =>
-      n.id !== noteId
+      n.id != noteId
     )
 
     this.setState({
@@ -48,7 +48,7 @@ class App extends Component {
     const contextValue = {
       notes: this.state.notes,
       folders: this.state.folders,
-      deleteNote: this.handleDeleteNote
+      deleteNote: this.deleteNote
     };
 
     return (
