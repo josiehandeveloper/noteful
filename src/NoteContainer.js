@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './App.css';
-import { Link } from 'react-router-dom';
 import store from './store';
 import FolderNav from './FolderNav';
 import config from './config';
@@ -65,6 +64,7 @@ export default class NoteContainer extends Component{
                         </button>
                     </li>
                 )}
+
             </ul> 
         </div>
     )

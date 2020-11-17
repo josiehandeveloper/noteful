@@ -5,6 +5,7 @@ import store from './store';
 import NotefulContext from './NotefulContext';
 
 
+
 class FolderNav extends Component {
     static contextType = NotefulContext; 
 
@@ -19,6 +20,11 @@ class FolderNav extends Component {
                             </NavLink>
                         </li>
                     )}
+                        <li>
+                            <NavLink exact to="/folder/addFolder">
+                                AddFolder
+                            </NavLink>
+                        </li>
                 </ul>
             </div>
         )

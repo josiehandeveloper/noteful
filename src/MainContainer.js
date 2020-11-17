@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import store from './store';
 import FolderNav from './FolderNav';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 export const MainContainer = (props) => {
    let folderId = props.match.params.folderId
@@ -25,6 +25,9 @@ export const MainContainer = (props) => {
                             <p>Date Modified: {note.modified}</p>
                         </li>
                     )}
+                    <NavLink exact to="/note/addNote">
+                        AddNote
+                    </NavLink>
                 </ul> 
             </main>
         </>
