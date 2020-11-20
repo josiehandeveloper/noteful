@@ -1,19 +1,18 @@
 import React, {Component} from 'react';
 import './App.css';
 import { NavLink } from 'react-router-dom';
-import store from './store';
 import NotefulContext from './NotefulContext';
 
 
-
-class FolderNav extends Component {
+export default class FolderNav extends Component {
     static contextType = NotefulContext; 
 
     render() {
+        const { folders=[] } = this.context
         return (
             <div className='FolderNavList'>
                 <ul className='FolderNav'>
-                    {store.folders.map(folder => 
+                    {folders.map(folder => 
                         <li key ={folder.id}>
                             <NavLink to={`/folder/${folder.id}`}>
                                 {folder.name}
@@ -21,8 +20,8 @@ class FolderNav extends Component {
                         </li>
                     )}
                         <li>
-                            <NavLink exact to="/folder/addFolder">
-                                AddFolder
+                            <NavLink exact to="/addFolder">
+                                Add Folder
                             </NavLink>
                         </li>
                 </ul>
@@ -31,4 +30,3 @@ class FolderNav extends Component {
     }
 }
 
-export default FolderNav;

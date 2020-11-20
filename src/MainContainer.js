@@ -1,40 +1,43 @@
 import React, { Component } from 'react'; 
 import './App.css';
-import store from './store';
 import FolderNav from './FolderNav';
 import { Link, NavLink } from 'react-router-dom';
+import NotefulContext from './NotefulContext';
+import NoteItem from './NoteItem'; 
+import { getNotesForFolder } from './notehelpers';
+import AddNote from './AddNote';
 
-export const MainContainer = (props) => {
-   let folderId = props.match.params.folderId
-   let notes = store.notes.filter((note) => {
-         return note.folderId === folderId
-    })
+export default class MainContainer extends Component{
+    static defaultProps = {
+        match: {
+            params:{}
+        }
+    }
 
-    return (
-        <>
-            <FolderNav />
-        
-            <main>
-                <ul className='NoteList'>
-                    {notes.map(note => 
-                        <li key={note.id}>
-                            <Link to={`/note/${note.id}`} >
-                                {note.name}
-                            </Link>
-                            <br />
-                            <p>Date Modified: {note.modified}</p>
-                        </li>
-                    )}
-                    <NavLink exact to="/note/addNote">
-                        AddNote
-                    </NavLink>
-                </ul> 
-            </main>
-        </>
-    )
-}
-
-
-
-
-
+    static contextType = NotefulContext
+    
+    render() {
+        let folderId = this.props.match.params.folderId
+        let notes = this.context.notes.filter((note) => {
+              return note.folderId === folderId
+         })
+  
+      return (
+        <div className='FolderNavNoteList'>
+          <FolderNav />
+            <ul className='NoteContent'>
+              {notes.map(note => 
+                <li key={note.id}>
+                    <NoteItem
+                        key={note.id}
+                        {...note}
+                        Date modified={note.modified} 
+                    />
+                                        
+                </li>
+              )}
+            </ul> 
+        </div>
+      )
+    }
+  }

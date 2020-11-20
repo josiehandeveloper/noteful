@@ -1,38 +1,61 @@
 import React, {Component} from 'react'; 
+import NoteFulContext from './NotefulContext';
+import config from './config'; 
 
+export default class AddFolder extends Component {
 
-class AddFolder extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            name: " ",
-        };
-    }
+    static contextType = NoteFulContext; 
+   
 
-    updateName(name){
-        this.setState({name});
-    }
+    handleSubmit = e => {
+        e.preventDefault()
+        const { name } = e.target
+        const folder = {
+          name: name.value,
+        }
+        this.setState({ error: null })
 
-    handleSubmit(event) {
-        event.preventDefault(); 
-        const { name } = this.state;
-        console.log('Name: ', name);
-    }
+        fetch(config.API_ENDPOINT, {
+          method: 'POST',
 
-
+          headers: {
+            'content-type': 'application/json',
+            'authorization': `bearer ${config.API_KEY}`
+          }
+        })
+          .then(res => {
+            if (!res.ok) {
+              
+              return res.json().then(error => {
+              
+                throw error
+              })
+            }
+            return res.json()
+          })
+          .then(data => {
+            name.value = ''
+            this.context.addFolder(data)
+           
+          })
+          .catch(error => {
+            console.log(error)
+            this.setState({ error })
+          })
+      }
+  
     render() {
 
         return (
-            <form className="addFolder" onSubmit={e => this.handleSubmit(e)}>
+            <form className="addFolder" onSubmit={this.handleSubmit}>
                 <div className="addFolder_form">
                     <label htmlFor="foldername"> Folder Name</label>
                     <br />
                     <input 
                         type="text" 
                         className="addFolder_text"
-                        name="name" 
-                        id="name" 
-                        onChange={e => this.updateName(e.target.value)}
+                        name='name' 
+                        id='name' 
                     />
 
                 </div>
@@ -43,5 +66,3 @@ class AddFolder extends Component {
         )
     }
 }
-
-export default AddFolder; 
