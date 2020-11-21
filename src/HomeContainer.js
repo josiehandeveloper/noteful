@@ -3,6 +3,7 @@ import './App.css';
 import NoteItem from './NoteItem'; 
 import NotefulContext from './NotefulContext';
 import FolderNav from './FolderNav';
+import { NavLink } from 'react-router-dom';
 
 class HomeContainer extends Component {
     static contextType = NotefulContext;
@@ -23,7 +24,14 @@ class HomeContainer extends Component {
                        {...note}
                        />
                     )}
+                    <br />
+                    <li>
+                        <NavLink exact to="/addNote">
+                            Add Note
+                        </NavLink>
+                    </li>
                 </ul>
+                
             </section>
         );
     }

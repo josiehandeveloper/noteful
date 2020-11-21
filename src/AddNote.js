@@ -5,6 +5,7 @@ import config from './config';
 
 
 class AddNote extends Component {
+    static contextType = NotefulContext; 
     constructor(props) {
         super(props);
         this.state = {
@@ -16,11 +17,7 @@ class AddNote extends Component {
                 value: " ",
                 touched: false
             },
-            folderId: {
-                value: " ",
-                touched: false
-            }
-
+            folderId: ''
         };
     }
     static contextType = NotefulContext; 
@@ -35,13 +32,15 @@ class AddNote extends Component {
     }
 
     updateFolderId(folderId){
-        this.setState({content: { value: folderId, touched: true}})
+        this.setState({folderId})
     }
+
 
 
     handleSubmit(event) {
         event.preventDefault(); 
-        const { name, content } = this.state;
+        const { name, content, folderId } = this.state;
+        
         console.log('Name: ', name);
         this.setState({ error:null })
 
@@ -52,7 +51,7 @@ class AddNote extends Component {
               'content-type': 'application/json',
               'authorization': `bearer ${config.API_KEY}`
             },
-            body: JSON.stringify({name:name.value, content: content.value})
+            body: JSON.stringify({name:name.value, content: content.value, folderId: folderId})
           })
             .then(res => {
               if (!res.ok) {
@@ -98,14 +97,8 @@ class AddNote extends Component {
         const { history } = this.props; 
         const nameError = this.validateName();
         const contentError = this.validateContent(); 
-        const { folders=[] } = this.context
-        const folderOptions = folders.map(folder => {
-            return (
-                <option value={folder.id} key={folder.id}>
-                    {folder.name}
-                </option>
-            )
-        })
+        const { folders } = this.context
+
         
     
         return (
@@ -125,6 +118,7 @@ class AddNote extends Component {
                             className="addNoteName_text"
                             name="name" 
                             id="name" 
+                            folderId="name"
                             onChange={e => this.updateName(e.target.value)}
                         />
                         {this.state.name.touched && <ValidationError message={nameError} />}
@@ -143,11 +137,14 @@ class AddNote extends Component {
                     <div className="addNote_formgroup">
                         <label htmlFor="folderoption">Select a folder</label>
                         <br />
-                        <select 
-                            name='folderId'>{folderOptions}
-                            onChange={e=> this.updateFolderId(e.target.value)}
+                        <select name='folderId' onChange={e=> this.updateFolderId(e.target.value)}>
+                            <option value={' '}>...</option>
+                            {folders.map(folder => 
+                                <option key={folder.id} value={folder.id}>
+                                    {folder.name}
+                                </option>
+                            )}
                         </select>
-
                     </div>
                     <br/>
                     <button type="submit" className="addNote_button">
