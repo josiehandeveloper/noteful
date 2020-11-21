@@ -10,16 +10,13 @@ import './App.css';
 import AddFolder from './AddFolder';
 import AddNote from './AddNote';
 import ErrorBoundary from './ErrorBoundary'; 
-
-
+import PropTypes from 'prop-types';
 
 class App extends Component {
   state = {
     notes: [],
     folders: [],
   };
-
-
 
   componentDidMount() {
     Promise.all([
@@ -81,8 +78,6 @@ class App extends Component {
     });
   }
 
-
-
   render () {
     const contextValue = {
       notes: this.state.notes,
@@ -112,6 +107,10 @@ console.log(this.state);
     )
   }
 }
-  export default withRouter(App); 
+export default withRouter(App); 
  
-
+App.propType = {
+  history: PropTypes.shape({
+      push: PropTypes.func.isRequired
+  })
+}

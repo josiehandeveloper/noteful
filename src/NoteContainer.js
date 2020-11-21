@@ -3,6 +3,7 @@ import './App.css';
 import FolderNav from './FolderNav';
 import NotefulContext from './NotefulContext';
 import NoteItem from './NoteItem';
+import PropTypes from 'prop-types';
 
 
 export default class NoteContainer extends Component{
@@ -34,4 +35,7 @@ export default class NoteContainer extends Component{
         </div>
         )
     }
+}
+NoteContainer.propTypes = {
+  id: PropTypes.string.isRequired,
 }

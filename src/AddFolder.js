@@ -1,7 +1,7 @@
 import React, {Component} from 'react'; 
 import config from './config'; 
 import FolderNav from './FolderNav';
-//import PropTypes from './prop-types';
+
 
 export default class AddFolder extends Component {
   constructor(props) {
@@ -14,7 +14,6 @@ export default class AddFolder extends Component {
     };
   }
    
-
   updateName(name) {
     this.setState({ name: { value: name, touched: true } });
   }
@@ -80,7 +79,3 @@ export default class AddFolder extends Component {
     }
 }
 
-
-AddFolder.defaultProps = {
-
-}

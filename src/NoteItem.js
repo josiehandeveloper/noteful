@@ -3,6 +3,7 @@ import './App.css';
 import NotefulContext from './NotefulContext';
 import config from './config';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 export default class NoteItem extends React.Component {
   static defaultProps = {
@@ -10,8 +11,14 @@ export default class NoteItem extends React.Component {
   }
   static contextType = NotefulContext;
 
+  redirectToHomeContainer = () => {
+    const { history } = this.props;
+    if(history) history.push('/');
+  }
+
   handleClickDelete = e => {
     e.preventDefault();
+    this.redirectToHomeContainer(); 
     const noteId = this.props.id
 
     fetch(`${config.API_ENDPOINT}/notes/${noteId}`, {
@@ -48,7 +55,8 @@ export default class NoteItem extends React.Component {
       </h2>
         <button className='Note__delete'
           type='submit'
-          onClick={this.handleClickDelete}>
+          onClick={this.handleClickDelete}
+          >
             Delete
         </button>
     </div>
@@ -56,3 +64,12 @@ export default class NoteItem extends React.Component {
   }
 }
 
+NoteItem.propTypes = {
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  modified: PropTypes.string.isRequired,
+  content: PropTypes.string.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired
+  })
+}

@@ -4,6 +4,7 @@ import FolderNav from './FolderNav';
 import { NavLink } from 'react-router-dom';
 import NotefulContext from './NotefulContext';
 import NoteItem from './NoteItem'; 
+import PropTypes from 'prop-types';
 
 export default class MainContainer extends Component{
 
@@ -40,3 +41,6 @@ export default class MainContainer extends Component{
       )
     }
   }
+MainContainer.propTypes = {
+  id: PropTypes.string.isRequired,
+}

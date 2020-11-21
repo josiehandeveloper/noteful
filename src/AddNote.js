@@ -2,9 +2,10 @@ import React, {Component} from 'react';
 import ValidationError from './ValidationError';
 import NotefulContext from './NotefulContext';
 import config from './config'; 
+import PropTypes from 'prop-types';
 
 
-class AddNote extends Component {
+export default class AddNote extends Component {
     static contextType = NotefulContext; 
     constructor(props) {
         super(props);
@@ -34,7 +35,6 @@ class AddNote extends Component {
     updateFolderId(folderId){
         this.setState({folderId})
     }
-
 
 
     handleSubmit(event) {
@@ -88,13 +88,12 @@ class AddNote extends Component {
         } 
       }
     
-    redirectToNoteContainer = () => {
+    redirectToHomeContainer = () => {
         const { history } = this.props;
-        if(history) history.push('/note/:noteId');
+        if(history) history.push('/');
     }
     
     render() {
-        const { history } = this.props; 
         const nameError = this.validateName();
         const contentError = this.validateContent(); 
         const { folders } = this.context
@@ -105,7 +104,7 @@ class AddNote extends Component {
             <>
             <aside>
          
-                    <button onClick={this.redirectToNoteContainer}>Back</button>
+                    <button onClick={this.redirectToHomeContainer}>Back</button>
             </aside>
             <main>
         
@@ -157,4 +156,8 @@ class AddNote extends Component {
     }
 }
 
-export default AddNote; 
+AddNote.propType = {
+    history: PropTypes.shape({
+        push: PropTypes.func.isRequired
+    })
+}
