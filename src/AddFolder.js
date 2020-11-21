@@ -1,31 +1,41 @@
 import React, {Component} from 'react'; 
-import NoteFulContext from './NotefulContext';
 import config from './config'; 
+import FolderNav from './FolderNav';
+//import PropTypes from './prop-types';
 
 export default class AddFolder extends Component {
-
-    static contextType = NoteFulContext; 
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: {
+        value: " ",
+        touched: false
+      }
+    };
+  }
    
+
+  updateName(name) {
+    this.setState({ name: { value: name, touched: true } });
+  }
 
     handleSubmit = e => {
         e.preventDefault()
-        const { name } = e.target
-        const folder = {
-          name: name.value,
-        }
+        const { name } = this.state
+          console.log(this.state);
         this.setState({ error: null })
 
-        fetch(config.API_ENDPOINT, {
+        fetch(`${config.API_ENDPOINT}/folders`, {
           method: 'POST',
 
           headers: {
             'content-type': 'application/json',
             'authorization': `bearer ${config.API_KEY}`
-          }
+          },
+          body: JSON.stringify({name:name.value})
         })
           .then(res => {
             if (!res.ok) {
-              
               return res.json().then(error => {
               
                 throw error
@@ -34,8 +44,7 @@ export default class AddFolder extends Component {
             return res.json()
           })
           .then(data => {
-            name.value = ''
-            this.context.addFolder(data)
+            this.context.addFolder({name: name.value, id: data.id})
            
           })
           .catch(error => {
@@ -47,6 +56,8 @@ export default class AddFolder extends Component {
     render() {
 
         return (
+          <>
+          <FolderNav/>
             <form className="addFolder" onSubmit={this.handleSubmit}>
                 <div className="addFolder_form">
                     <label htmlFor="foldername"> Folder Name</label>
@@ -56,6 +67,7 @@ export default class AddFolder extends Component {
                         className="addFolder_text"
                         name='name' 
                         id='name' 
+                        onChange={e => this.updateName(e.target.value)}
                     />
 
                 </div>
@@ -63,6 +75,12 @@ export default class AddFolder extends Component {
                     Add Folder
                 </button>
             </form>
+          </>
         )
     }
+}
+
+
+AddFolder.defaultProps = {
+
 }

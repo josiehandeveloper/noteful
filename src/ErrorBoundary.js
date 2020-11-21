@@ -8,10 +8,17 @@ class ErrorBoundary extends React.Component {
           hasError: false
         };
       }
+
       static getDerivedStateFromError(error) {
         return { hasError: true };
       }
-
-
+      render() {
+        if(this.state.hasError) {
+          return(
+            <h2>Could not display Noteful</h2>
+          );
+        }
+        return this.props.children; 
+      }
 } 
 export default ErrorBoundary; 

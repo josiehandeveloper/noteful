@@ -1,6 +1,7 @@
 import React, {Component} from 'react'; 
 import ValidationError from './ValidationError';
-import store from './store';
+import NotefulContext from './NotefulContext';
+import config from './config'; 
 
 
 class AddNote extends Component {
@@ -14,9 +15,16 @@ class AddNote extends Component {
             content: {
                 value: " ",
                 touched: false
+            },
+            folderId: {
+                value: " ",
+                touched: false
             }
+
         };
     }
+    static contextType = NotefulContext; 
+    
 
     updateName(name) {
         this.setState({ name: { value: name, touched: true } });
@@ -26,16 +34,58 @@ class AddNote extends Component {
         this.setState({ content: { value: content, touched: true } });
     }
 
+    updateFolderId(folderId){
+        this.setState({content: { value: folderId, touched: true}})
+    }
+
+
     handleSubmit(event) {
         event.preventDefault(); 
         const { name, content } = this.state;
         console.log('Name: ', name);
+        this.setState({ error:null })
+
+        fetch(`${config.API_ENDPOINT}/notes`, {
+            method: 'POST',
+  
+            headers: {
+              'content-type': 'application/json',
+              'authorization': `bearer ${config.API_KEY}`
+            },
+            body: JSON.stringify({name:name.value, content: content.value})
+          })
+            .then(res => {
+              if (!res.ok) {
+                return res.json().then(error => {
+                
+                  throw error
+                })
+              }
+              return res.json()
+            })
+            .then(data => {
+              this.context.addNote({ id: data.id, name: name.value, content: content.value, folderId: data.folderId  })
+             console.log(this.state); 
+            })
+            .catch(error => {
+              console.log(error)
+              this.setState({ error })
+            })
+
     }
 
     validateName() {
         const name = this.state.name.value.trim();
         if (name.length === 0) {
           return "Name is required";
+        } 
+      }
+    
+    
+    validateContent() {
+        const content = this.state.content.value.trim();
+        if (content.length === 0) {
+          return "Content is required";
         } 
       }
     
@@ -47,7 +97,9 @@ class AddNote extends Component {
     render() {
         const { history } = this.props; 
         const nameError = this.validateName();
-        const folderOptions = store.folders.map(folder => {
+        const contentError = this.validateContent(); 
+        const { folders=[] } = this.context
+        const folderOptions = folders.map(folder => {
             return (
                 <option value={folder.id} key={folder.id}>
                     {folder.name}
@@ -86,11 +138,16 @@ class AddNote extends Component {
                             content="content" 
                             onChange={e => this.updateContent(e.target.value)}
                         />
+                        {this.state.content.touched && <ValidationError message={contentError} />}
                     </div>
                     <div className="addNote_formgroup">
                         <label htmlFor="folderoption">Select a folder</label>
                         <br />
-                        <select name='folderId'>{folderOptions}</select>
+                        <select 
+                            name='folderId'>{folderOptions}
+                            onChange={e=> this.updateFolderId(e.target.value)}
+                        </select>
+
                     </div>
                     <br/>
                     <button type="submit" className="addNote_button">

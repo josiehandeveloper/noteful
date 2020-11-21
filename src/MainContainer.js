@@ -1,18 +1,11 @@
 import React, { Component } from 'react'; 
 import './App.css';
 import FolderNav from './FolderNav';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import NotefulContext from './NotefulContext';
 import NoteItem from './NoteItem'; 
-import { getNotesForFolder } from './notehelpers';
-import AddNote from './AddNote';
 
 export default class MainContainer extends Component{
-    static defaultProps = {
-        match: {
-            params:{}
-        }
-    }
 
     static contextType = NotefulContext
     
@@ -36,6 +29,12 @@ export default class MainContainer extends Component{
                                         
                 </li>
               )}
+              <br />
+              <li>
+              <NavLink exact to="/addNote">
+                  Add Note
+              </NavLink>
+              </li>
             </ul> 
         </div>
       )

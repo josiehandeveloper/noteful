@@ -4,6 +4,7 @@ import FolderNav from './FolderNav';
 import NotefulContext from './NotefulContext';
 import NoteItem from './NoteItem';
 
+
 export default class NoteContainer extends Component{
 
       static contextType = NotefulContext;

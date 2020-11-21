@@ -9,6 +9,7 @@ import config from './config';
 import './App.css';
 import AddFolder from './AddFolder';
 import AddNote from './AddNote';
+import ErrorBoundary from './ErrorBoundary'; 
 
 
 
@@ -56,10 +57,11 @@ class App extends Component {
     });
   };
 
-  addFolder = (folderId) => {
+  addFolder = (folderData) => {
     const newFolders = this.state.folders.filter(f =>
-      f.id != folderId  
+      f.id != folderData.folderId  
     )
+   newFolders.push(folderData)
     this.setState({
       folders: newFolders
     }, () => {
@@ -67,10 +69,11 @@ class App extends Component {
     });
   };
 
-  addNote = (noteId) => {
+  addNote = (noteData) => {
     const newNotes = this.state.notes.filter(n => 
-      n.id != noteId
+      n.id != noteData.noteId
     )
+    newNotes.push(noteData)
     this.setState({ 
       notes: newNotes
     }, () => {
@@ -88,11 +91,11 @@ class App extends Component {
       addFolder: this.addFolder,
       addNote: this.addNote
     };
-
+console.log(this.state);
     return (
         <NotefulContext.Provider value={contextValue}>
           <div className='App'>
-
+            <ErrorBoundary>
             <Router>
             <Header />
               <Switch>
@@ -103,6 +106,7 @@ class App extends Component {
                 <Route exact path='/addNote' component={AddNote}/>
               </Switch>
             </Router>
+            </ErrorBoundary>
           </div>
         </NotefulContext.Provider>
     )

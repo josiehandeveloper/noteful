@@ -29,14 +29,11 @@ export default class NoteItem extends React.Component {
       })
       .then(() => {
         this.context.deleteNote(noteId)
-        //this.props.onDeleteNote(noteId)
       })
       .catch(error => {
         console.log(error)
       })
   }
-
-  
 
   render() {
     const { name, id, content, modified } = this.props
