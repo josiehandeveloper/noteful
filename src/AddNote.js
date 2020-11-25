@@ -40,6 +40,7 @@ export default class AddNote extends Component {
     handleSubmit(event) {
         event.preventDefault(); 
         const { name, content, folderId } = this.state;
+    
         
         console.log('Name: ', name);
         this.setState({ error:null })
@@ -63,6 +64,7 @@ export default class AddNote extends Component {
               return res.json()
             })
             .then(data => {
+     
               this.context.addNote({ id: data.id, name: name.value, content: content.value, folderId: data.folderId  })
              console.log(this.state); 
             })
@@ -87,25 +89,18 @@ export default class AddNote extends Component {
           return "Content is required";
         } 
       }
-    
-    redirectToHomeContainer = () => {
-        const { history } = this.props;
-        if(history) history.push('/');
-    }
+
     
     render() {
         const nameError = this.validateName();
         const contentError = this.validateContent(); 
         const { folders } = this.context
-
-        
+        const sendMessage = () => {
+            { alert("Note has been created");}
+        }
     
         return (
             <>
-            <aside>
-         
-                    <button onClick={this.redirectToHomeContainer}>Back</button>
-            </aside>
             <main>
         
                 <form className="addNote_form" onSubmit={e => this.handleSubmit(e)}>
@@ -146,7 +141,7 @@ export default class AddNote extends Component {
                         </select>
                     </div>
                     <br/>
-                    <button type="submit" className="addNote_button">
+                    <button onClick={sendMessage} type="submit" className="addNote_button" >
                         Add Note
                     </button>
                 </form>

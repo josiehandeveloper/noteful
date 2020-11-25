@@ -13,10 +13,12 @@ export default class AddFolder extends Component {
       }
     };
   }
-   
+  
+  
   updateName(name) {
     this.setState({ name: { value: name, touched: true } });
   }
+
 
     handleSubmit = e => {
         e.preventDefault()
@@ -53,7 +55,9 @@ export default class AddFolder extends Component {
       }
   
     render() {
-
+      const refreshPage = () => {
+        window.location.reload();
+      }
         return (
           <>
           <FolderNav/>
@@ -70,7 +74,7 @@ export default class AddFolder extends Component {
                     />
 
                 </div>
-                <button type="submit" className="addFolder_button">
+                <button onClick={refreshPage} type="submit" className="addFolder_button">
                     Add Folder
                 </button>
             </form>

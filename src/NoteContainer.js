@@ -21,6 +21,7 @@ export default class NoteContainer extends Component{
         <div className='FolderNavNoteList'>
             <FolderNav />
             <ul className='NoteContent'>
+              <li>
               {notes.map(note => 
                 <NoteItem 
                   key={note.id}
@@ -31,6 +32,7 @@ export default class NoteContainer extends Component{
                   onClickDelete={this.DeleteNote}
                 />
               )}
+              </li>
             </ul> 
         </div>
         )

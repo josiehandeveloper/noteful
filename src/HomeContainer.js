@@ -17,7 +17,7 @@ class HomeContainer extends Component {
                     <FolderNav/>
 
                 </ul>
-                <ul className='NotesList_list' aria-live='polite'>
+                <ul className='NotesList' aria-live='polite'>
                     {notes.map(note => 
                        <NoteItem 
                        key={note.id}
