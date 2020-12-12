@@ -38,7 +38,7 @@ export default class NoteItem extends React.Component {
         this.context.deleteNote(noteId)
       })
       .catch(error => {
-        console.log(error)
+        this.setState({error})
       })
   }
 
@@ -53,6 +53,9 @@ export default class NoteItem extends React.Component {
         <p>{content}</p>
         <p>{modified}</p>
       </h2>
+        <Link to={`/edit/${id}`}>
+          Edit
+        </Link>
         <button className='Note__delete'
           type='submit'
           onClick={this.handleClickDelete}
@@ -65,9 +68,9 @@ export default class NoteItem extends React.Component {
 }
 
 NoteItem.propTypes = {
-  id: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
-  modified: PropTypes.string.isRequired,
+  modified: PropTypes.string,
   content: PropTypes.string.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired

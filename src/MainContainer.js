@@ -1,7 +1,7 @@
 import React, { Component } from 'react'; 
 import './App.css';
 import FolderNav from './FolderNav';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import NotefulContext from './NotefulContext';
 import NoteItem from './NoteItem'; 
 import PropTypes from 'prop-types';
@@ -27,10 +27,9 @@ export default class MainContainer extends Component{
                         {...note}
                         Date modified={note.modified} 
                     />
-                                        
+                    <Link to={`/edit/${note.id}`}>Edit Note</Link>                                      
                 </li>
               )}
-              <br />
               <li>
               <NavLink exact to="/addNote">
                   Add Note

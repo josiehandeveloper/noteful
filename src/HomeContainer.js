@@ -13,7 +13,7 @@ class HomeContainer extends Component {
         return (
             <section className='NotesListNav'>
                 <h2>Notes</h2>
-                <ul class='Nav'>
+                <ul className='Nav'>
                     <FolderNav/>
 
                 </ul>
@@ -24,7 +24,6 @@ class HomeContainer extends Component {
                        {...note}
                        />
                     )}
-                    <br />
                     <li>
                         <NavLink exact to="/addNote">
                             Add Note

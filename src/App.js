@@ -11,6 +11,7 @@ import AddFolder from './AddFolder';
 import AddNote from './AddNote';
 import ErrorBoundary from './ErrorBoundary'; 
 import PropTypes from 'prop-types';
+import EditNote from './EditNote'
 
 class App extends Component {
   state = {
@@ -41,42 +42,37 @@ class App extends Component {
 
 
   deleteNote = (noteId) => {
-    console.log('here' , noteId)
-    console.log('before', this.state.notes.length)
     const newNotes = this.state.notes.filter(n =>
-      n.id != noteId
+      n.id !== noteId
     )
-    console.log('after', newNotes.length)
+    
     this.setState({
       notes: newNotes
-    }, () => {
-      this.props.history.push('/')
     });
   };
 
   addFolder = (folderData) => {
-    const newFolders = this.state.folders.filter(f =>
-      f.id != folderData.folderId  
-    )
-   newFolders.push(folderData)
     this.setState({
-      folders: newFolders
-    }, () => {
-      this.props.history.push('/')
-    });
+      folders: [...this.state.folders, folderData]
+    })
   };
 
   addNote = (noteData) => {
-    const newNotes = this.state.notes.filter(n => 
-      n.id != noteData.noteId
-    )
-    newNotes.push(noteData)
-    this.setState({ 
-      notes: newNotes
-    }, () => {
-      this.props.history.push('/')
-    });
+    this.setState({
+      notes: [...this.state.notes, noteData]
+    })
   }
+
+  updateNote = updatedNote => {
+    const newNotes = this.state.notes.map(not => 
+      (not.id === updatedNote.id)
+        ? updatedNote
+        : not
+    )
+    this.setState({
+      notes: newNotes
+    })
+  };
 
   render () {
     const contextValue = {
@@ -84,9 +80,10 @@ class App extends Component {
       folders: this.state.folders,
       deleteNote: this.deleteNote,
       addFolder: this.addFolder,
-      addNote: this.addNote
+      addNote: this.addNote,
+      updateNote: this.updateNote,
     };
-console.log(this.state);
+
     return (
         <NotefulContext.Provider value={contextValue}>
           <div className='App'>
@@ -99,6 +96,7 @@ console.log(this.state);
                 <Route exact path='/addFolder' component={AddFolder}/>
                 <Route path='/note/:noteId' component={NoteContainer}/>
                 <Route exact path='/addNote' component={AddNote}/>
+                <Route path='/edit/:noteId' component={EditNote}/>
               </Switch>
             </Router>
             </ErrorBoundary>

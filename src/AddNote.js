@@ -40,9 +40,6 @@ export default class AddNote extends Component {
     handleSubmit(event) {
         event.preventDefault(); 
         const { name, content, folderId } = this.state;
-    
-        
-        console.log('Name: ', name);
         this.setState({ error:null })
 
         fetch(`${config.API_ENDPOINT}/notes`, {
@@ -52,7 +49,7 @@ export default class AddNote extends Component {
               'content-type': 'application/json',
               'authorization': `bearer ${config.API_KEY}`
             },
-            body: JSON.stringify({name:name.value, content: content.value, folderId: folderId})
+            body: JSON.stringify({name:name.value, content: content.value, folder_id: folderId})
           })
             .then(res => {
               if (!res.ok) {
@@ -64,9 +61,8 @@ export default class AddNote extends Component {
               return res.json()
             })
             .then(data => {
-     
-              this.context.addNote({ id: data.id, name: name.value, content: content.value, folderId: data.folderId  })
-             console.log(this.state); 
+              this.context.addNote(data)
+              this.props.history.push('/');
             })
             .catch(error => {
               console.log(error)
@@ -95,9 +91,6 @@ export default class AddNote extends Component {
         const nameError = this.validateName();
         const contentError = this.validateContent(); 
         const { folders } = this.context
-        const sendMessage = () => {
-            { alert("Note has been created");}
-        }
     
         return (
             <>
@@ -105,32 +98,31 @@ export default class AddNote extends Component {
         
                 <form className="addNote_form" onSubmit={e => this.handleSubmit(e)}>
                     <div className="addNote_formgroup">
-                        <label htmlFor="addNoteName"> Note Name</label>
-                        <br />
+                        <p><label htmlFor="addNoteName"> Note Name</label>
                         <input 
                             type="text" 
                             className="addNoteName_text"
                             name="name" 
                             id="name" 
                             folderId="name"
+                            required
                             onChange={e => this.updateName(e.target.value)}
-                        />
+                        /></p>
                         {this.state.name.touched && <ValidationError message={nameError} />}
                     </div>
                     <div className="addNote_formgroup">
-                        <label htmlFor="notecontent"> Note Content</label>
-                        <br />
+                        <p><label htmlFor="notecontent"> Note Content</label>
                         <textarea 
                             type="text" 
                             className="addNoteContent_text"
                             content="content" 
                             onChange={e => this.updateContent(e.target.value)}
                         />
+                        </p>
                         {this.state.content.touched && <ValidationError message={contentError} />}
                     </div>
                     <div className="addNote_formgroup">
-                        <label htmlFor="folderoption">Select a folder</label>
-                        <br />
+                        <p><label htmlFor="folderoption">Select a folder</label>
                         <select name='folderId' onChange={e=> this.updateFolderId(e.target.value)}>
                             <option value={' '}>...</option>
                             {folders.map(folder => 
@@ -138,10 +130,9 @@ export default class AddNote extends Component {
                                     {folder.name}
                                 </option>
                             )}
-                        </select>
+                        </select></p>
                     </div>
-                    <br/>
-                    <button onClick={sendMessage} type="submit" className="addNote_button" >
+                    <button type="submit" className="addNote_button" >
                         Add Note
                     </button>
                 </form>

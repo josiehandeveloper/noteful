@@ -33,6 +33,7 @@ export default class NoteContainer extends Component{
                 />
               )}
               </li>
+
             </ul> 
         </div>
         )
