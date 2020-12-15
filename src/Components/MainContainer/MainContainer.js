@@ -1,5 +1,4 @@
 import React, { Component } from 'react'; 
-import '../../';
 import FolderNav from '../FolderNav/FolderNav';
 import { NavLink, Link } from 'react-router-dom';
 import NotefulContext from '../NotefulContext/NotefulContext';
