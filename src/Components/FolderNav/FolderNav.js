@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import './App.css';
+import '../../App.css';
 import { NavLink } from 'react-router-dom';
-import NotefulContext from './NotefulContext';
+import NotefulContext from '../NotefulContext/NotefulContext';
 
 
 export default class FolderNav extends Component {

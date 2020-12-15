@@ -1,7 +1,7 @@
 import React from 'react';
-import './App.css';
-import NotefulContext from './NotefulContext';
-import config from './config';
+import '../../App.css';
+import NotefulContext from "../NotefulContext/NotefulContext";
+import config from '../../config';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 

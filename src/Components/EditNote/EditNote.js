@@ -1,7 +1,7 @@
 import React, { Component } from  'react';
 import PropTypes from 'prop-types';
-import NotefulContext from './NotefulContext';
-import config from '../src/config'
+import NotefulContext from '../NotefulContext/NotefulContext';
+import config from '../../config'
 
 const Required = () => (
   <span className='EditNote__required'>*</span>

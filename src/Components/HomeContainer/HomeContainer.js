@@ -1,8 +1,8 @@
 import React, { Component } from 'react'; 
-import './App.css';
-import NoteItem from './NoteItem'; 
-import NotefulContext from './NotefulContext';
-import FolderNav from './FolderNav';
+import '../../App.css';
+import NoteItem from '../NoteItem/NoteItem'; 
+import NotefulContext from '../NotefulContext/NotefulContext';
+import FolderNav from '../FolderNav/FolderNav';
 import { NavLink } from 'react-router-dom';
 
 class HomeContainer extends Component {

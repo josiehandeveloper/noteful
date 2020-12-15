@@ -1,7 +1,7 @@
 import React, {Component} from 'react'; 
-import ValidationError from './ValidationError';
-import NotefulContext from './NotefulContext';
-import config from './config'; 
+import ValidationError from '../ValidationError/ValidationError';
+import NotefulContext from "../NotefulContext/NotefulContext";
+import config from '../../config';
 import PropTypes from 'prop-types';
 
 

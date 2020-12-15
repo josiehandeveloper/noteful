@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import config from "./config";
-import FolderNav from "./FolderNav";
-import Context from "./NotefulContext";
+import config from '../../config';
+import FolderNav from '../FolderNav/FolderNav';
+import NotefulContext from '../NotefulContext/NotefulContext';
 
 export default class AddFolder extends Component {
-  static contextType = Context;
+  static contextType = NotefulContext;
   state = {
     name: {
       value: " ",

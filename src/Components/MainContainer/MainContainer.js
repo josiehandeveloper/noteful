@@ -1,9 +1,9 @@
 import React, { Component } from 'react'; 
-import './App.css';
-import FolderNav from './FolderNav';
+import '../../';
+import FolderNav from '../FolderNav/FolderNav';
 import { NavLink, Link } from 'react-router-dom';
-import NotefulContext from './NotefulContext';
-import NoteItem from './NoteItem'; 
+import NotefulContext from '../NotefulContext/NotefulContext';
+import NoteItem from '../NoteItem/NoteItem'; 
 import PropTypes from 'prop-types';
 
 export default class MainContainer extends Component{

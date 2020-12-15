@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch, withRouter } from 'react-router-dom';
-import MainContainer  from './MainContainer';
-import NoteContainer from './NoteContainer';
-import HomeContainer from './HomeContainer';
-import Header from './Header';
-import NotefulContext from './NotefulContext'; 
+import MainContainer  from './Components/MainContainer/MainContainer';
+import NoteContainer from './Components/NoteContainer/NoteContainer';
+import HomeContainer from './Components/HomeContainer/HomeContainer';
+import Header from './Components/Header/Header';
+import NotefulContext from './Components/NotefulContext/NotefulContext'; 
 import config from './config';
 import './App.css';
-import AddFolder from './AddFolder';
-import AddNote from './AddNote';
-import ErrorBoundary from './ErrorBoundary'; 
+import AddFolder from './Components/AddFolder/AddFolder';
+import AddNote from './Components/AddNote/AddNote';
+import ErrorBoundary from './Components/ErrorBoundary/ErrorBoundary'; 
 import PropTypes from 'prop-types';
-import EditNote from './EditNote'
+import EditNote from './Components/EditNote/EditNote'
 
 class App extends Component {
   state = {

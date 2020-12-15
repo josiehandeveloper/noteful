@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import './App.css';
-import FolderNav from './FolderNav';
-import NotefulContext from './NotefulContext';
-import NoteItem from './NoteItem';
+import '../../App.css';
+import FolderNav from '../FolderNav/FolderNav';
+import NotefulContext from '../NotefulContext/NotefulContext';
+import NoteItem from '../NoteItem/NoteItem'; 
 import PropTypes from 'prop-types';
 
 
