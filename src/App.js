@@ -1,10 +1,5 @@
 import React, { Component } from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  withRouter,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, withRouter } from "react-router-dom";
 import MainContainer from "./Components/MainContainer/MainContainer";
 import NoteContainer from "./Components/NoteContainer/NoteContainer";
 import HomeContainer from "./Components/HomeContainer/HomeContainer";
@@ -45,10 +40,8 @@ class App extends Component {
   }
 
   deleteNote = (noteId) => {
-    const newNotes = this.state.notes.filter((n) => n.id !== noteId);
-
     this.setState({
-      notes: newNotes,
+      notes: this.state.notes.filter((n) => n.id !== noteId),
     });
   };
 
@@ -89,14 +82,12 @@ class App extends Component {
           <ErrorBoundary>
             <Router>
               <Header />
-              <Switch>
-                <Route exact path="/" component={HomeContainer} />
-                <Route path="/folder/:folderId" component={MainContainer} />
-                <Route exact path="/addFolder" component={AddFolder} />
-                <Route path="/note/:noteId" component={NoteContainer} />
-                <Route exact path="/addNote" component={AddNote} />
-                <Route path="/edit/:noteId" component={EditNote} />
-              </Switch>
+              <Route exact path="/" component={HomeContainer} />
+              <Route path="/folder/:folderId" component={MainContainer} />
+              <Route path="/addFolder" component={AddFolder} />
+              <Route path="/note/:noteId" component={NoteContainer} />
+              <Route path="/addNote" component={AddNote} />
+              <Route path="/edit/:noteId" component={EditNote} />
             </Router>
           </ErrorBoundary>
         </div>

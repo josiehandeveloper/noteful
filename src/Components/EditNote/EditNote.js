@@ -27,13 +27,8 @@ export default class EditNote extends Component {
   };
 
   componentDidMount() {
-    const noteId = this.props.match.params.noteId;
-    fetch(`${config.API_ENDPOINT}/notes/${noteId}`, {
-      method: "GET",
-      headers: {
-        authorization: `Bearer ${config.API_KEY}`,
-      },
-    })
+    const noteId = this.props.match.params.note_id;
+    fetch(`${config.API_ENDPOINT}/notes/${noteId}`)
       .then((res) => {
         if (!res.ok) return res.json().then((error) => Promise.reject(error));
 
@@ -72,10 +67,10 @@ export default class EditNote extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const { noteId } = this.props.match.params;
+    const { note_id } = this.props.match.params;
     const { id, name, date_modified, folder_id, content } = this.state;
     const newNote = { id, name, date_modified, folder_id, content };
-    fetch(config.API_ENDPOINT + `/${noteId}`, {
+    fetch(`${config.API_ENDPOINT}/notes/${note_id}`, {
       method: "PATCH",
       body: JSON.stringify(newNote),
       headers: {

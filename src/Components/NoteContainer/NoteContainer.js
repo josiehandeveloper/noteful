@@ -3,7 +3,6 @@ import "../../App.css";
 import FolderNav from "../FolderNav/FolderNav";
 import NotefulContext from "../NotefulContext/NotefulContext";
 import NoteItem from "../NoteItem/NoteItem";
-import PropTypes from "prop-types";
 
 export default class NoteContainer extends Component {
   static contextType = NotefulContext;
@@ -11,7 +10,7 @@ export default class NoteContainer extends Component {
   render() {
     let noteId = this.props.match.params.noteId;
     let notes = this.context.notes.filter((note) => {
-      return note.id === noteId;
+      return note.id === Number(noteId);
     });
 
     return (
@@ -26,7 +25,7 @@ export default class NoteContainer extends Component {
                 name={note.name}
                 content={note.content}
                 modified={note.modified}
-                onClickDelete={this.DeleteNote}
+                history={this.props.history}
               />
             ))}
           </li>
@@ -35,6 +34,3 @@ export default class NoteContainer extends Component {
     );
   }
 }
-NoteContainer.propTypes = {
-  id: PropTypes.string.isRequired,
-};
