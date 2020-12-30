@@ -27,7 +27,7 @@ export default class EditNote extends Component {
   };
 
   componentDidMount() {
-    const noteId = this.props.match.params.note_id;
+    const noteId = this.props.match.params.noteId;
     fetch(`${config.API_ENDPOINT}/notes/${noteId}`)
       .then((res) => {
         if (!res.ok) return res.json().then((error) => Promise.reject(error));
