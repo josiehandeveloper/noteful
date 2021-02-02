@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import config from '../../config';
-import FolderNav from '../FolderNav/FolderNav';
-import NotefulContext from '../NotefulContext/NotefulContext';
+import config from "../../config";
+import FolderNav from "../FolderNav/FolderNav";
+import NotefulContext from "../NotefulContext/NotefulContext";
 
 export default class AddFolder extends Component {
   static contextType = NotefulContext;
@@ -39,7 +39,6 @@ export default class AddFolder extends Component {
         return res.json();
       })
       .then((data) => {
-        console.log("added folder");
         this.context.addFolder(data);
         this.props.history.push("/");
       })

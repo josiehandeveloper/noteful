@@ -33,9 +33,6 @@ class App extends Component {
       })
       .then(([notes, folders]) => {
         this.setState({ notes, folders });
-      })
-      .catch((error) => {
-        console.log({ error });
       });
   }
 
@@ -58,8 +55,8 @@ class App extends Component {
   };
 
   updateNote = (updatedNote) => {
-    const newNotes = this.state.notes.map((not) =>
-      not.id === updatedNote.id ? updatedNote : not
+    const newNotes = this.state.notes.map((note) =>
+      note.id === updatedNote.id ? updatedNote : note
     );
     this.setState({
       notes: newNotes,

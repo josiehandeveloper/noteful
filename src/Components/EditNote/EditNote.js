@@ -53,24 +53,16 @@ export default class EditNote extends Component {
     this.setState({ name: e.target.value });
   };
 
-  handleChangeDate_Modified = (e) => {
-    this.setState({ date_modified: e.target.value });
-  };
-
-  handleChangefolder_id = (e) => {
-    this.setState({ folder_id: e.target.value });
-  };
-
   handleChangeContent = (e) => {
     this.setState({ content: e.target.value });
   };
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const { note_id } = this.props.match.params;
-    const { id, name, date_modified, folder_id, content } = this.state;
-    const newNote = { id, name, date_modified, folder_id, content };
-    fetch(`${config.API_ENDPOINT}/notes/${note_id}`, {
+    const { noteId } = this.props.match.params;
+    const { id, name, content } = this.state;
+    const newNote = { id, name, content };
+    fetch(`${config.API_ENDPOINT}/notes/${noteId}`, {
       method: "PATCH",
       body: JSON.stringify(newNote),
       headers: {
@@ -83,7 +75,7 @@ export default class EditNote extends Component {
       })
       .then(() => {
         this.resetFields(newNote);
-        this.context.updateBookmark(newNote);
+        this.context.updateNote(newNote);
         this.props.history.push("/");
       })
       .catch((error) => {
@@ -103,7 +95,7 @@ export default class EditNote extends Component {
   };
 
   render() {
-    const { error, name, date_modified, folder_id, content } = this.state;
+    const { error, name, content } = this.state;
 
     return (
       <section className="EditNote">
@@ -127,34 +119,7 @@ export default class EditNote extends Component {
               onChange={this.handleChangeName}
             />
           </div>
-          <div>
-            <label htmlFor="date_modified">
-              Date Modified <Required />
-            </label>
-            <input
-              type="date_modified"
-              name="date_modified"
-              id="date_modified"
-              placeholder="2019-01-03T00:00:00.000Z"
-              required
-              value={date_modified}
-              onChange={this.handleChangeDate_Modified}
-            />
-          </div>
-          <div>
-            <label htmlFor="folder_id">
-              Folder ID <Required />
-            </label>
-            <input
-              type="folder_id"
-              name="folder_id"
-              id="folder_id"
-              placeholder="1"
-              required
-              value={folder_id}
-              onChange={this.handleChangefolder_id}
-            />
-          </div>
+
           <div>
             <label htmlFor="content">
               Content <Required />
